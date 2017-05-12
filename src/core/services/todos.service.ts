@@ -21,6 +21,11 @@ export class TodosService {
     this.storage.set('todos', []);
   }
 
+  /**
+   * Gets todos data - currently just from Ionic 2 storage source
+   * @name getData
+   * @returns {Promise<Todo[]>}
+   */
   public getData(): Promise<Todo[]> {
     return new Promise((resolve, reject) => {
 
@@ -28,7 +33,6 @@ export class TodosService {
         this.storage.get('todos').then((data) => {
           resolve(data ? JSON.parse(data) : []);
         }, () => {
-          // TODO: Error handling
           reject([]);
         });
       });
@@ -37,14 +41,19 @@ export class TodosService {
 
   }
 
+  /**
+   * Saves list to storage
+   * @param data
+   */
   public save(data): void {
     let newData = JSON.stringify(data);
 
     this.storage.ready().then(() => {
-      this.storage.set('todos', newData);
-    }, () => {
+      this.storage.set('todos', newData).then(() => {}, (error) => {
+        // TODO: Error Handling
+      });
+    }, (error) => {
       // TODO: Error handling
-
     });
   }
 
