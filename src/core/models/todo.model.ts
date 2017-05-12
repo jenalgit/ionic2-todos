@@ -8,6 +8,8 @@ export class Todo {
   public description: string;
   public createdAt: string;
   public lastModified: string;
+  public completed: boolean = false;
+  public completedAt: string;
 
   constructor(title: string, description: string) {
     this.title = title;

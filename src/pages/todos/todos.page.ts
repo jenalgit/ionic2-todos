@@ -58,6 +58,25 @@ export class TodosPage {
   }
 
   /**
+   * Splices item from items array, and saves to service
+   * @name deleteItem
+   * @param index
+   */
+  public deleteItem(index): void {
+    this.items.splice(index, 1);
+    this.todosService.save(this.items);
+  }
+
+  public reorderItems(indexes) {
+    console.log(indexes);
+    let element = this.items[indexes.from];
+    this.items.splice(indexes.from, 1);
+    this.items.splice(indexes.to, 0, element);
+    console.log(this.items);
+    this.todosService.save(this.items);
+  }
+
+  /**
    * Pushes new item to items array, and saves to service
    * @name saveItem
    * @param item Todo
@@ -71,7 +90,8 @@ export class TodosPage {
    * Open TodoDetail for a given todo item
    * @name viewItem
    */
-  public viewItem(todo): void {
+  public viewItem(todo, index): void {
+    todo.index = index;
     this.navController.push(TodoDetailPage, todo);
   }
 
