@@ -3,13 +3,34 @@
     <ion-title>
       {{todo.title}}
     </ion-title>
+    <ion-buttons end>
+      <button ion-button (tap)="editMode ? saveChanges() : toggleEdit()">
+        {{ editMode ? 'Save' : 'Edit' }}
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-content>
-      {{todo.description}}
-    </ion-card-content>
-  </ion-card>
+  <ion-list>
+
+    <ion-item>
+      <ion-label stacked>Title</ion-label>
+      <ion-input
+        type="text"
+        [(ngModel)]="todo.title"
+        [readonly]="!editMode">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Description</ion-label>
+      <ion-textarea
+        [(ngModel)]="todo.description"
+        [readonly]="!editMode">
+      </ion-textarea>
+    </ion-item>
+
+  </ion-list>
+
 </ion-content>
