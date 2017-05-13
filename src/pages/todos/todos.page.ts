@@ -67,12 +67,14 @@ export class TodosPage {
     this.todosService.save(this.items);
   }
 
+  /**
+   * @name reorderItems
+   * @param indexes
+   */
   public reorderItems(indexes) {
-    console.log(indexes);
     let element = this.items[indexes.from];
     this.items.splice(indexes.from, 1);
     this.items.splice(indexes.to, 0, element);
-    console.log(this.items);
     this.todosService.save(this.items);
   }
 
@@ -86,13 +88,17 @@ export class TodosPage {
     this.todosService.save(this.items);
   }
 
+  public toggleItem(index): void {
+    this.items[index].completed = !this.items[index].completed;
+    this.todosService.save(this.items);
+  }
+
   /**
    * Open TodoDetail for a given todo item
    * @name viewItem
    */
-  public viewItem(todo, index): void {
-    todo.index = index;
-    this.navController.push(TodoDetailPage, todo);
+  public viewItem(index): void {
+    this.navController.push(TodoDetailPage, { items: this.items, index: index });
   }
 
 }

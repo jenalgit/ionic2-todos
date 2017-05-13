@@ -16,15 +16,15 @@
 
     <ion-item-sliding *ngFor="let item of items; let i = index;">
 
-        <ion-item (press)="viewItem(item)">
-          <ion-label [class.completed]="item.completed">{{ item.title }}</ion-label>
-          <ion-checkbox [(ngModel)]="item.completed" (ngModelChange)="todosService.save(items)"> </ion-checkbox>
+        <ion-item>
+          <ion-label [class.completed]="item.completed" (tap)="toggleItem(i)">{{ item.title }}</ion-label>
+          <!--<ion-checkbox [(ngModel)]="item.completed" (ngModelChange)="todosService.save(items)"> </ion-checkbox>-->
         </ion-item>
         <ion-item-options>
           <button
             ion-button
             color="light"
-            (tap)="viewItem(item, i)">
+            (tap)="viewItem(i)">
             <ion-icon name="clipboard"></ion-icon> Details
           </button>
           <button
