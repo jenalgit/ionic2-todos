@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { AboutPage } from '../todo-detail/about';
 import { SettingsPage } from '../settings/settings.page';
 import { TodosPage } from '../todos/todos.page';
 
