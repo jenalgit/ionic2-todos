@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
+import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Todo } from '../../core/models/todo.model';
 
@@ -14,21 +15,31 @@ import { Todo } from '../../core/models/todo.model';
  */
 export class AddTodoPage {
 
-  public title: string;
-  public description: string;
+  public todo : FormGroup;
 
-  constructor(public navController: NavController, public view: ViewController) {}
-
-  public saveItem(): void {
-
-    let newItem = new Todo(this.title, this.description);
-
-    this.view.dismiss(newItem);
-
+  constructor(private formBuilder: FormBuilder, public view: ViewController) {
+    this.todo = this.formBuilder.group({
+      title: ['', Validators.required],
+      description: [''],
+    });
   }
 
+  /**
+   * Dismisses view
+   * @name close
+   */
   public close(): void {
     this.view.dismiss();
+  }
+
+  /**
+   * Creates new Todo, and dismisses view
+   * @name saveItem
+   */
+  public saveItem(): void {
+    let newItem = new Todo(this.todo.value.title, this.todo.value.description);
+    this.view.dismiss(newItem);
+
   }
 
 }
