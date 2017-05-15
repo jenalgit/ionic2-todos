@@ -25,7 +25,7 @@ export class TodoDetailPage {
    * @name ionViewDidLoad
    */
   ionViewDidLoad() {
-    this.todo = this.navParams.data.items[this.navParams.data.index];
+    this.todo = this.navParams.data;
   }
 
   /**
@@ -33,12 +33,8 @@ export class TodoDetailPage {
    * @name saveChanges
    */
   public saveChanges(): void {
-    let index = this.navParams.data.index;
-    let items = this.navParams.data.items;
 
-    items[index] = this.todo;
-
-    this.todosService.save(items);
+    this.todosService.updateItem(this.todo);
     this.toggleEdit();
   }
 

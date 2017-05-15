@@ -4,7 +4,7 @@
       To Do: {{ items.length }} Items
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="addItem()">
+      <button ion-button icon-only (click)="openAddItemModal()">
         <ion-icon name="add-circle"></ion-icon>
       </button>
     </ion-buttons>
@@ -12,25 +12,24 @@
 </ion-header>
 
 <ion-content>
-  <ion-list reorder="true" (ionItemReorder)="reorderItems($event)">
+  <ion-list reorder="true" (ionItemReorder)="reorder($event)">
 
     <ion-item-sliding *ngFor="let item of items; let i = index;">
 
         <ion-item>
-          <ion-label [class.completed]="item.completed" (tap)="toggleItem(i)">{{ item.title }}</ion-label>
-          <!--<ion-checkbox [(ngModel)]="item.completed" (ngModelChange)="todosService.save(items)"> </ion-checkbox>-->
+          <ion-label [class.completed]="item.completed" (tap)="toggleItemCompleted(item)">{{ item.title }}</ion-label>
         </ion-item>
         <ion-item-options>
           <button
             ion-button
             color="light"
-            (tap)="viewItem(i)">
+            (tap)="viewItem(item)">
             <ion-icon name="clipboard"></ion-icon> Details
           </button>
           <button
             ion-button
             color="danger"
-            (tap)="deleteItem(i)">
+            (tap)="removeTodo(item)">
             <ion-icon name="trash"></ion-icon> Delete
           </button>
         </ion-item-options>

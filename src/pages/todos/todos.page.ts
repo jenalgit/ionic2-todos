@@ -23,7 +23,7 @@ export class TodosPage {
 
   constructor(
     private modalController: ModalController,
-    public navController: NavController,
+    private navController: NavController,
     private todosService: TodosService) {}
 
   /**
@@ -32,73 +32,54 @@ export class TodosPage {
    */
   ionViewDidLoad() {
 
-    this.todosService.getData().then((data) => {
+    this.todosService.updates().subscribe(data => {
       this.items = data;
-    }, () => {
-      // Error handling:
     });
+
   }
 
   /**
-   * Present modal, and add onDidDismiss for save item
-   * @name addItem
+   * Present Add Item modal
+   * @name openAddItemModal
    */
-  public addItem(): void {
+  public openAddItemModal(): void {
     let addModal = this.modalController.create(AddTodoPage);
-
-    addModal.onDidDismiss((item) => {
-
-      if(item){
-        this.saveItem(item);
-      }
-
-    });
-
     addModal.present();
   }
 
   /**
-   * Splices item from items array, and saves to service
-   * @name deleteItem
-   * @param index
+   * Removes item from items
+   * @name removeItem
+   * @param item
    */
-  public deleteItem(index): void {
-    this.items.splice(index, 1);
-    this.todosService.save(this.items);
+  public removeItem(item) {
+    this.todosService.removeTodo(item);
   }
 
   /**
-   * @name reorderItems
+   * Reorders items - using 'indexes' information, used for drag and drop
+   * @name reorder
    * @param indexes
    */
-  public reorderItems(indexes) {
-    let element = this.items[indexes.from];
-    this.items.splice(indexes.from, 1);
-    this.items.splice(indexes.to, 0, element);
-    this.todosService.save(this.items);
+  public reorder(indexes) {
+    this.todosService.reorder(indexes);
   }
 
   /**
-   * Pushes new item to items array, and saves to service
-   * @name saveItem
-   * @param item Todo
+   * Toggle 'completed' status of item
+   * @name toggleItemCompleted
+   * @param item
    */
-  private saveItem(item): void {
-    this.items.push(item);
-    this.todosService.save(this.items);
-  }
-
-  public toggleItem(index): void {
-    this.items[index].completed = !this.items[index].completed;
-    this.todosService.save(this.items);
+  public toggleItemCompleted(item): void {
+    this.todosService.toggleItemCompleted(item);
   }
 
   /**
-   * Open TodoDetail for a given todo item
+   * Open TodoDetail for a given item
    * @name viewItem
    */
-  public viewItem(index): void {
-    this.navController.push(TodoDetailPage, { items: this.items, index: index });
+  public viewItem(item): void {
+    this.navController.push(TodoDetailPage, item);
   }
 
 }
