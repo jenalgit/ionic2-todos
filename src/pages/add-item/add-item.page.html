@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Add Todo Item
+      Add Item
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
@@ -11,7 +11,7 @@
 
 <ion-content padding>
   <ion-list>
-    <form [formGroup]="todo" (ngSubmit)="addTodo()">
+    <form [formGroup]="item" (ngSubmit)="addItem()">
       <ion-item>
         <ion-label floating>Title</ion-label>
         <ion-input type="text" formControlName="title"></ion-input>
@@ -23,7 +23,7 @@
       </ion-item>
 
       <div padding>
-        <button type="submit" block large ion-button color="primary" [disabled]="!todo.valid">Save</button>
+        <button type="submit" block large ion-button color="primary" [disabled]="!item.valid">Save</button>
       </div>
 
     </form>

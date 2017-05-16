@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 
 import { SettingsPage } from '../settings/settings.page';
-import { TodosPage } from '../todos/todos.page';
+import { ItemsPage } from '../items/items.page';
 
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
-  todosRoot = TodosPage;
+  itemsRoot = ItemsPage;
   settingsRoot = SettingsPage;
 
   constructor() {

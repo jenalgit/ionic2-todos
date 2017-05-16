@@ -1,30 +1,32 @@
 import { Component } from '@angular/core';
 import { ModalController, NavController } from 'ionic-angular';
 
-import { AddTodoPage } from '../add-todo/add-todo.page';
-import { Todo } from '../../core/models/todo.model';
-import { TodoDetailPage } from '../todo-detail/todo-detail.page';
+import { AddItemPage } from '../add-item/add-item.page';
 
-import { TodosService } from '../../core/services/todos.service';
+
+import { Item } from '../../core/models/item.model';
+import { ItemDetailPage } from '../item-detail/item-detail.page';
+
+import { ItemsService } from '../../core/services/items.service';
 
 @Component({
-  selector: 'page-todos',
-  templateUrl: 'todos.page.html'
+  selector: 'page-items',
+  templateUrl: 'items.page.html'
 })
 
 /**
- * Controller for the TodosPage component
- * @class TodosPage
+ * Controller for the ItemsPage component
+ * @class ItemsPage
  * @author Erik Johnson <erik@erikaugust.com>
  */
-export class TodosPage {
+export class ItemsPage {
 
-  public items: Array<Todo> = [];
+  public items: Array<Item> = [];
 
   constructor(
     private modalController: ModalController,
     private navController: NavController,
-    private todosService: TodosService) {}
+    private itemsService: ItemsService) {}
 
   /**
    * On load, populate the items array
@@ -32,7 +34,7 @@ export class TodosPage {
    */
   ionViewDidLoad() {
 
-    this.todosService.updates().subscribe(data => {
+    this.itemsService.updates().subscribe(data => {
       this.items = data;
     });
 
@@ -43,7 +45,7 @@ export class TodosPage {
    * @name openAddItemModal
    */
   public openAddItemModal(): void {
-    let addModal = this.modalController.create(AddTodoPage);
+    let addModal = this.modalController.create(AddItemPage);
     addModal.present();
   }
 
@@ -53,7 +55,7 @@ export class TodosPage {
    * @param item
    */
   public removeItem(item) {
-    this.todosService.removeTodo(item);
+    this.itemsService.removeItem(item);
   }
 
   /**
@@ -62,7 +64,7 @@ export class TodosPage {
    * @param indexes
    */
   public reorder(indexes) {
-    this.todosService.reorder(indexes);
+    this.itemsService.reorder(indexes);
   }
 
   /**
@@ -71,7 +73,7 @@ export class TodosPage {
    * @param item
    */
   public toggleItemCompleted(item): void {
-    this.todosService.toggleItemCompleted(item);
+    this.itemsService.toggleItemCompleted(item);
   }
 
   /**
@@ -79,7 +81,7 @@ export class TodosPage {
    * @name viewItem
    */
   public viewItem(item): void {
-    this.navController.push(TodoDetailPage, item);
+    this.navController.push(ItemDetailPage, item);
   }
 
 }

@@ -1,9 +1,9 @@
 /**
- * Model for Todo
- * @class Todo
+ * Model for Item
+ * @class Item
  * @author Erik Johnson <erik@erikaugust.com>
  */
-export class Todo {
+export class Item {
   public title: string;
   public description: string;
   public createdAt: string;

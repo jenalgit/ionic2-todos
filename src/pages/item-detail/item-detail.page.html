@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      {{todo.title}}
+      {{ item.title }}
     </ion-title>
     <ion-buttons end>
       <button ion-button (tap)="editMode ? saveChanges() : toggleEdit()">
@@ -18,7 +18,7 @@
       <ion-label stacked>Title</ion-label>
       <ion-input
         type="text"
-        [(ngModel)]="todo.title"
+        [(ngModel)]="item.title"
         [readonly]="!editMode">
       </ion-input>
     </ion-item>
@@ -26,7 +26,7 @@
     <ion-item>
       <ion-label stacked>Description</ion-label>
       <ion-textarea
-        [(ngModel)]="todo.description"
+        [(ngModel)]="item.description"
         [readonly]="!editMode">
       </ion-textarea>
     </ion-item>

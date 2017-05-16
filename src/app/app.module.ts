@@ -5,13 +5,13 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 
 import { SettingsPage } from '../pages/settings/settings.page';
-import { TodoDetailPage } from '../pages/todo-detail/todo-detail.page';
-import { TodosPage } from '../pages/todos/todos.page';
-import { AddTodoPage } from '../pages/add-todo/add-todo.page';
+import { ItemDetailPage } from '../pages/item-detail/item-detail.page';
+import { ItemsPage } from '../pages/items/items.page';
+import { AddItemPage } from '../pages/add-item/add-item.page';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { TodosService } from '../core/services/todos.service';
+import { ItemsService } from '../core/services/items.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,9 +20,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   declarations: [
     MyApp,
     SettingsPage,
-    AddTodoPage,
-    TodoDetailPage,
-    TodosPage,
+    AddItemPage,
+    ItemDetailPage,
+    ItemsPage,
     TabsPage
   ],
   imports: [
@@ -37,13 +37,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     SettingsPage,
-    AddTodoPage,
-    TodoDetailPage,
-    TodosPage,
+    AddItemPage,
+    ItemDetailPage,
+    ItemsPage,
     TabsPage
   ],
   providers: [
-    TodosService,
+    ItemsService,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
