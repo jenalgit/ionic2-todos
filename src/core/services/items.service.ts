@@ -17,6 +17,8 @@ export class ItemsService {
   itemsObservable: any;
   itemsObserver: any;
 
+  storageKey: string = 'items';
+
 
   /**
    * @name constructor
@@ -47,7 +49,20 @@ export class ItemsService {
   public addItem(item: Item): void {
     this.items.push(item);
     this.itemsObserver.next(this.items);
+    this.saveToStorage();
+  }
 
+  /**
+   * Sets item to archive and saves items to storage
+   * @name archiveItem
+   * @param item
+   */
+  public archiveItem(item: Item): void {
+    let index = this.items.indexOf(item);
+
+    this.items[index].archived = true;
+
+    this.itemsObserver.next(this.items);
     this.saveToStorage();
   }
 
@@ -60,7 +75,7 @@ export class ItemsService {
     return new Promise((resolve) => {
 
       this.storage.ready().then(() => {
-        this.storage.get('items').then((data) => {
+        this.storage.get(this.storageKey).then((data) => {
           resolve(data ? JSON.parse(data) : []);
         });
       });
@@ -77,7 +92,7 @@ export class ItemsService {
 
     this.items = [];
     this.itemsObserver.next(this.items);
-    this.storage.set('items', []);
+    this.storage.set(this.storageKey, []);
   }
 
   /**
@@ -118,7 +133,7 @@ export class ItemsService {
     let newData = JSON.stringify(this.items);
 
     this.storage.ready().then(() => {
-      this.storage.set('items', newData);
+      this.storage.set(this.storageKey, newData);
     });
   }
 
@@ -131,11 +146,21 @@ export class ItemsService {
     let index = this.items.indexOf(item);
     this.items[index].completed = !this.items[index].completed;
 
+    // If completed, add completedAt time:
+    if (this.items[index].completed) {
+      this.items[index].completedAt = new Date().toString();
+    }
+
     this.itemsObserver.next(this.items);
     this.saveToStorage();
 
   }
 
+  /**
+   * Adds updated item to items and saves to storage
+   * @name updateItem
+   * @param item
+   */
   public updateItem(item: Item): void {
     let index = this.items.indexOf(item);
 

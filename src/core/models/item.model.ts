@@ -10,6 +10,7 @@ export class Item {
   public lastModified: string;
   public completed: boolean = false;
   public completedAt: string;
+  public archived: boolean = false;
 
   constructor(title: string, description: string) {
     this.title = title;

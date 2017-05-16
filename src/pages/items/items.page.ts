@@ -36,8 +36,13 @@ export class ItemsPage {
 
     this.itemsService.updates().subscribe(data => {
       this.items = data;
+      console.log(this.items);
     });
 
+  }
+
+  public archiveItem(item): void {
+    this.itemsService.archiveItem(item);
   }
 
   /**
