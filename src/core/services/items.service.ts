@@ -48,8 +48,8 @@ export class ItemsService {
    */
   public addItem(item: Item): void {
     this.items.push(item);
-    this.itemsObserver.next(this.items);
-    this.saveToStorage();
+
+    this.update();
   }
 
   /**
@@ -62,8 +62,7 @@ export class ItemsService {
 
     this.items[index].archived = true;
 
-    this.itemsObserver.next(this.items);
-    this.saveToStorage();
+    this.update();
   }
 
   /**
@@ -102,11 +101,9 @@ export class ItemsService {
    */
   public removeItem(item: Item): void {
     let index = this.items.indexOf(item);
-
     this.items.splice(index, 1);
-    this.saveToStorage();
 
-    this.itemsObserver.next(this.items);
+    this.update();
   }
 
   /**
@@ -119,9 +116,7 @@ export class ItemsService {
     this.items.splice(indexes.from, 1);
     this.items.splice(indexes.to, 0, element);
 
-    this.itemsObserver.next(this.items);
-
-    this.saveToStorage();
+    this.update();
   }
 
   /**
@@ -151,8 +146,7 @@ export class ItemsService {
       this.items[index].completedAt = new Date().toString();
     }
 
-    this.itemsObserver.next(this.items);
-    this.saveToStorage();
+    this.update();
 
   }
 
@@ -166,6 +160,15 @@ export class ItemsService {
 
     this.items[index] = item;
 
+    // Update:
+    this.update();
+  }
+
+  /**
+   * Saves to storage - and broadcasts update
+   * @name update
+   */
+  public update(): void {
     this.itemsObserver.next(this.items);
     this.saveToStorage();
   }
